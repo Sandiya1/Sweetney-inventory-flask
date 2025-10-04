@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Movements</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #fff8fb;
+        color: #333;
+    }
+
+    h2 {
+        font-weight: 800;
+        background: linear-gradient(135deg, #FF86EB, #FFB6FE, #FFA07A, #FF8C94, #9484FE);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #FF86EB, #FFB6FE, #FFA07A);
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        padding: 0.8rem 2rem;
+        box-shadow: 0 6px 20px rgba(255, 134, 235, 0.3);
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #FFB6FE, #FF86EB, #FFA07A);
+        box-shadow: 0 8px 25px rgba(255, 134, 235, 0.4);
+    }
+
+    .btn-secondary {
+        background: white;
+        border: 2px solid #FF86EB;
+        color: #FF86EB;
+        border-radius: 50px;
+        font-weight: 600;
+        padding: 0.8rem 2rem;
+    }
+
+    .btn-secondary:hover {
+        background: #FF86EB;
+        color: white;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #FF5E5E, #FF8C94);
+        border: none;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #FF8C94, #FF5E5E);
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        padding: 1rem;
+    }
+
+    table th, table td {
+        vertical-align: middle;
+    }
+
+    table thead th {
+        background: linear-gradient(135deg, #FF86EB, #FFB6FE);
+        color: white;
+        font-weight: 700;
+    }
+
+    table tbody tr:hover {
+        background: rgba(255, 134, 235, 0.1);
+    }
+
+    .alert-info {
+        background: linear-gradient(135deg, #FFB6FE, #FF86EB);
+        color: white;
+        border-radius: 15px;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+        .table-responsive {
+            font-size: 0.9rem;
+        }
+    }
+
+    .container {
+        max-width: 1000px;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Product Movements</h2>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <a href="{{ url_for('add_movement') }}" class="btn btn-primary">Add New Movement</a>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
+
+    {% if movements %}
+    <div class="table-container table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Product</th>
+                    <th>From Location</th>
+                    <th>To Location</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movement in movements %}
+                <tr>
+                    <td>{{ movement.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>{{ movement.product.name }} (ID: {{ movement.product_id }})</td>
+                    <td>{{ movement.from_location or 'N/A' }}</td>
+                    <td>{{ movement.to_location or 'N/A' }}</td>
+                    <td>{{ movement.qty }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_movement', movement_id=movement.movement_id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this movement?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        No movements found. <a href="{{ url_for('add_movement') }}" class="text-white text-decoration-underline">Record the first movement</a>.
+    </div>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
