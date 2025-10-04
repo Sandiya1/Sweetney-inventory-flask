@@ -1,10 +1,10 @@
-Sweetney Inventory Management System 📦
+*Sweetney Inventory Management System 📦*
 
 A Flask-based web application to manage inventory efficiently.
 
 Sweetney lets you track products, manage stock movements, and maintain an organized inventory with a clean and cozy interface.
 
-Features 
+*Features* 
 
 Add, update, and delete products
 
@@ -16,12 +16,8 @@ User-friendly UI built with Flask and Jinja2
 
 Optional reports and data export
 
-Demo
 
-Live demo (if deployed):
-[Insert your deployed app link here]
-
-Installation ⚡
+*Installation ⚡*
 
 Clone the repository:
 
@@ -56,19 +52,8 @@ flask run
 
 Open your browser at http://127.0.0.1:5000
 
-Project Structure
-sweetney/
-│
-├─ app.py                  # Main Flask app
-├─ requirements.txt        # Python dependencies
-├─ templates/              # HTML templates
-├─ static/                 # CSS, JS, images
-├─ forms.py                # Flask-WTF forms
-├─ models.py               # Database models
-├─ routes.py               # Flask routes (if separated)
-└─ ...
 
-Dependencies
+*Dependencies*
 
 Flask
 
@@ -80,6 +65,6 @@ Flask-SQLAlchemy (or any DB ORM you are using)
 
 Other packages as listed in requirements.txt
 
-Contributing
+*Contributing*
 
 Feel free to fork the project, suggest features, or submit pull requests. Keep inventory management simple and cozy!
