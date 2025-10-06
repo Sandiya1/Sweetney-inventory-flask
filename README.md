@@ -63,16 +63,7 @@ These instructions will help you set up and run the project on your local machin
 - Edit or delete existing products.
 - Monitor inventory levels via the report.
 
-## Project Structure
 
-```
-Sweetney-inventory-flask/
-├── app/            # Application code (routes, models, forms, templates)
-├── migrations/     # Database migrations
-├── tests/          # Unit and integration tests
-├── requirements.txt
-└── README.md
-```
 
 ## Technologies Used
 
@@ -80,7 +71,7 @@ Sweetney-inventory-flask/
 - Flask
 - SQLAlchemy (ORM)
 - Jinja2 (templating)
-- Bootstrap (frontend framework)
+- HTML CSS (frontend)
 
 ## Pages
 *Home Page*
